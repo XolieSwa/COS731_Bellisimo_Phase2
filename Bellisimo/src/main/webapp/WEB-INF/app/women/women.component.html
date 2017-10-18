@@ -1,0 +1,139 @@
+<div class="brand">Bellisimo</div>
+<!-- Navigation -->
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
+      <a class="navbar-brand" href="index.html">Bellisimo</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a [routerLink] = "['/home']">Home</a>
+        </li>
+        <li>
+          <a [routerLink] = "['/clothing']">Clothing</a>
+        </li>
+        <li>
+          <a [routerLink] = "['/food']">Food</a>
+        </li>
+        <li>
+          <a [routerLink] = "['/contact']">Contact</a>
+        </li>
+        <li>
+          <a [routerLink] = "['/login']">Admin</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+
+
+<!--Heading -->
+<div class="row">
+  <div class="box">
+    <div class="col-lg-12">
+      <hr>
+      <h2 class="intro-text text-center">Our
+        <strong>Women Clothing</strong>
+      </h2>
+      <hr>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="selectedImageModal" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <img *ngIf="selectedImage" src="{{selectedImage.url}}" >
+      </div>
+    </div>
+  </div>
+</div>
+<ul id="thumbnailsList">
+  <li *ngFor="let image of datasource" >
+    <img src="{{image.url}}" class="tn"
+         width="191" height="146"
+         data-toggle="modal" data-target="#selectedImageModal"
+         (click)=setSelectedImage(image)>
+  </li>
+</ul>
+
+
+<div class="box">
+
+  <!--
+  <h1>Maintain product</h1>
+  <h3 *ngIf="productIdToUpdate; else create">
+    Update Product for Id: {{productIdToUpdate}}
+  </h3>
+  <ng-template #create>
+    <h3> Create New Product </h3>
+  </ng-template>
+  <div>
+    <form [formGroup]="productForm" (ngSubmit)="onProductFormSubmit()">
+      <table>
+        <tr><td>Enter CategorySubType</td><td><input formControlName="categorySubType">
+          <label *ngIf="productForm.get('categorySubType').invalid && processValidation" [ngClass] = "'error'"> categorySubType is required. </label>
+        </td></tr>
+        <tr><td>Enter Category</td><td><input formControlName="category">
+          <label *ngIf="productForm.get('category').invalid && processValidation" [ngClass] = "'error'"> Category is required. </label>
+        </td></tr>
+        <tr><td colspan="2">
+          <button *ngIf="!productIdToUpdate">CREATE</button>
+          <button *ngIf="productIdToUpdate">UPDATE</button>
+          <button (click)="backToCreateProduct()" *ngIf="productIdToUpdate">Go Back</button>
+        </td></tr>
+      </table>
+    </form>
+    <br/>
+    <div *ngIf="statusCode; else processing">
+      <div *ngIf="statusCode === 201" [ngClass] = "'success'">
+        Product added successfully.
+      </div>
+      <div *ngIf="statusCode === 409" [ngClass] = "'success'">
+        Product already exists.
+      </div>
+      <div *ngIf="statusCode === 200" [ngClass] = "'success'">
+        Product updated successfully.
+      </div>
+      <div *ngIf="statusCode === 204" [ngClass] = "'success'">
+        Product deleted successfully.
+      </div>
+      <div *ngIf="statusCode === 500" [ngClass] = "'error'">
+        Internal Server Error.
+      </div>
+    </div>
+    <ng-template #processing>
+      <img *ngIf="requestProcessing" src="../../assets/img/loading.gif">
+    </ng-template>
+  </div>
+
+  -->
+        <div *ngFor="let product of allProducts" >
+          <div class="gallery" *ngIf="product.category === 'Clothing' && product.categoryType === 'Women'">
+            <a target="_blank" href={{product.imagePath}}>
+              <img src={{product.imagePath}} alt="" width="300" height="200">
+            </a>
+            <div class="desc">{{product.categorySubType}}</div>
+            <div class="desc">{{product.description}}</div>
+            <div class="desc">{{product.price}}</div>
+            <div>
+              <button type="button" (click)="loadProductToEdit(product.id)">Edit</button>
+              <button type="button" (click)="deleteProduct(product.id)">Delete</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
